@@ -1,0 +1,71 @@
+{
+  "name": "LCS-open",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "runArgs": [
+    "--gpus=all"
+  ],
+  "features": {
+    "ghcr.io/julialang/devcontainer-features/julia:1": {
+      "channel": "1.12"
+    },
+    "./grml-zsh": {}
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/root/.claude",
+    "JULIA_DEPOT_PATH": "/root/.julia"
+  },
+  "remoteUser": "root",
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh/config,target=/root/.ssh/config,type=bind,readonly",
+    "source=claude-code-config-${devcontainerId},target=/root/.claude,type=volume",
+    "source=julia-${devcontainerId},target=/root/.julia,type=volume",
+    "source=zsh-history-${devcontainerId},target=/root/.zsh_history,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "julialang.language-julia",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "files.eol": "\n",
+        "editor.formatOnSave": true,
+        "editor.fontFamily": "JuliaMono, monospace",
+        "editor.fontSize": 12,
+        "terminal.integrated.cwd": "${workspaceFolder:LCS-Analysis}",
+        "terminal.integrated.env.linux": {
+          "JULIA_NUM_THREADS": "auto",
+          "JULIA_PKG_USE_CLI_GIT": "true",
+          "OMPI_ALLOW_RUN_AS_ROOT": "1",
+          "OMPI_ALLOW_RUN_AS_ROOT_CONFIRM": "1",
+          "UCX_WARN_UNUSED_ENV_VARS": "n",
+          "UCX_ERROR_SIGNALS": "SIGILL,SIGBUS,SIGFPE"
+        },
+        "yaml.schemas": {
+          "./lcs-schema.json": [
+            "**/*.lcs-yaml"
+          ]
+        },
+        "files.associations": {
+          "*.lcs-yaml": "yaml"
+        },
+        "julia.enableCrashReporter": false,
+        "[julia]": {
+          "editor.unicodeHighlight.ambiguousCharacters": false,
+          "editor.detectIndentation": false,
+          "editor.insertSpaces": true,
+          "editor.tabSize": 4,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "editor.rulers": [
+            120
+          ]
+        }
+      }
+    }
+  }
+}

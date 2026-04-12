@@ -1,0 +1,111 @@
+outdir: "runs/N1500-bench"
+
+mode:
+  kind: "flow-particle"
+
+backend:
+  kind: cuda
+
+topo:
+  proc_dims:
+    - 0
+    - 0
+    - 0
+  reorder: true
+
+grid:
+  dims:
+    - 1500
+    - 1500
+    - 1500
+  halo_size: 3
+
+timestep:
+  cfl: 0.3
+  dtmax: 0.01
+
+simulate:
+  last_step: 10000
+  interval_gc: 1000
+  interval_stat: 100
+  interval_restart: 5000
+  num_restart_files: 2
+
+flow:
+  params:
+    U0_m_s: 6.66
+    L0_m: 0.005
+    NU_m2_s: 1.5E-5
+
+  init:
+    kind: restart
+    params:
+      file: "runs/N1500/restart.h5.10000"
+
+  couple:
+    kind: hsmac
+    params:
+      overlap: true
+      time_blocking: true
+      omega: 1.7
+      epsp: 0.001
+      itrmin: 6
+      itrmax: 300
+      coloring:
+        kind: red-black-fast
+
+  forcing:
+    kind: "rc-energy"
+    params:
+      kmin: 1
+      kmax: 2
+      energy: 0.66
+      coarse_size: 12
+
+  stat:
+    integral_length: false
+
+particles:
+  - population:
+      valid: 421875000
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+
+    params:
+      gravity: 0.0
+      density_ratio: 843
+
+    cell:
+      grid_ratio: 4
+
+    stat:
+      rdf:
+        bin_size: 16
+        contact_tolerance: 0.01
+        min_radius: 1.0e-4
+        search_cell_size: 2
+
+    drag:
+      kind: nonlinear
+
+    init:
+      id:
+        kind: restart
+        params:
+          file: "runs/N1500/restart.h5.10000"
+          iprofile: 1
+      position:
+        kind: restart
+        params:
+          file: "runs/N1500/restart.h5.10000"
+          iprofile: 1
+      velocity:
+        kind: restart
+        params:
+          file: "runs/N1500/restart.h5.10000"
+          iprofile: 1
+      size:
+        kind: restart
+        params:
+          file: "runs/N1500/restart.h5.10000"
+          iprofile: 1

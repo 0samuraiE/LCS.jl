@@ -1,0 +1,16 @@
+name = "PPrint"
+uuid = "7b964c70-caf8-4119-bb55-f99d26fb12cf"
+version = "0.1.0"
+authors = ["Taketo Tominaga"]
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
+[compat]
+Printf = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

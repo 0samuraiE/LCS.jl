@@ -1,0 +1,62 @@
+population:
+  valid: integer
+  invalid_ratio: number
+  exchange_ratio: number
+
+params:
+  gravity: number
+  density_ratio: number
+
+cell:
+  grid_ratio: integer
+
+stat:
+  rdf:
+    contact_tolerance: number
+    bin_size: integer
+    min_radius: number
+    search_cell_size: integer
+
+drag:
+  oneOf:
+    - kind: linear
+    - kind: nonlinear
+
+init:
+  id:
+    oneOf:
+      - kind: generate
+
+      - kind: restart
+        params:
+          file: string
+          iprofile: integer
+
+  position:
+    oneOf:
+      - kind: random
+
+      - kind: restart
+        params:
+          file: string
+          iprofile: integer
+
+  velocity:
+    oneOf:
+      - kind: rest
+
+      - kind: restart
+        params:
+          file: string
+          iprofile: integer
+
+  size:
+    oneOf:
+      - kind: const
+        params:
+          diam_m: number
+
+      - kind: restart
+        params:
+          file: string
+          iprofile: integer

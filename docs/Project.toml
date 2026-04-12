@@ -1,0 +1,21 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+FourierTools = "b9e16037-d6f3-4dbd-a43e-b54ed29354cc"
+LCS = "d7500b79-e12e-45b8-bb2e-4c8efc610d56"
+Offsets = "4cbf57ff-8b37-4821-8cf8-adde16df10ac"
+PPrint = "7b964c70-caf8-4119-bb55-f99d26fb12cf"
+Parallel = "d2bb4270-1b2a-40fa-ad96-fe8145f8b2b3"
+PolySerde = "f47ed369-7962-4eb7-b989-aeb24d097042"
+ReferenceTests = "88108e5b-be21-48fc-b37b-67ff0dce88cb"
+Schema = "df342a83-a642-4e55-8d68-66afc4eb8422"
+Topologies = "c5b11047-32fe-46e1-9f4f-7c3274b144d9"
+
+[sources]
+FourierTools = {path = "../lib/fouriertools"}
+LCS = {path = ".."}
+Offsets = {path = "../lib/offsets"}
+PPrint = {path = "../lib/pprint"}
+Parallel = {path = "../lib/parallel"}
+PolySerde = {path = "../lib/polyserde"}
+Schema = {path = "../lib/schema"}
+Topologies = {path = "../lib/topologies"}

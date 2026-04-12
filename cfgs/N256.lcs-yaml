@@ -1,0 +1,289 @@
+outdir: "runs/N256"
+mode:
+  kind: "flow-particle"
+backend:
+  kind: "cuda"
+topo:
+  proc_dims:
+    - 0
+    - 0
+    - 0
+  reorder: false
+grid:
+  dims:
+    - 256
+    - 256
+    - 256
+  halo_size: 3
+timestep:
+  cfl: 0.3
+  dtmax: 0.01
+simulate:
+  last_step: 20000
+  interval_stat: 100
+  interval_restart: 1000
+  interval_gc: 1000
+  num_restart_files: 3
+flow:
+  params:
+    U0_m_s: 1.08
+    L0_m: 0.005
+    NU_m2_s: 1.5e-5
+  init:
+    kind: "upsample"
+    params:
+      file: "runs/N128/restart.h5.10000"
+  couple:
+    kind: "hsmac"
+    params:
+      overlap: true
+      time_blocking: true
+      coloring:
+        kind: "red-black-fast"
+      omega: 1.7
+      epsp: 0.001
+      itrmin: 6
+      itrmax: 300
+  forcing:
+    kind: "rc-energy"
+    params:
+      kmin: 1
+      kmax: 2
+      energy: 0.649
+      coarse_size: 8
+  stat:
+    integral_length: true
+particles:
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 5.248e-06
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 7.421e-06
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 9.089e-06
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 1.050e-05
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 1.173e-05
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 1.659e-05
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 2.347e-05
+
+  - population:
+      valid: 2097152
+      invalid_ratio: 0.5
+      exchange_ratio: 0.01
+    params:
+      gravity: 0.0
+      density_ratio: 843.0
+    cell:
+      grid_ratio: 4
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 16
+        min_radius: 5.0e-4
+        search_cell_size: 1
+    drag:
+      kind: "nonlinear"
+    init:
+      id:
+        kind: "generate"
+      position:
+        kind: "random"
+      velocity:
+        kind: "rest"
+      size:
+        kind: "const"
+        params:
+          diam_m: 3.319e-05

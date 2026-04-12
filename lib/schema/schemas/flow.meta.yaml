@@ -1,0 +1,62 @@
+params:
+  U0_m_s: number
+  L0_m: number
+  NU_m2_s: number
+
+init:
+  oneOf:
+    - kind: random-flow
+      params:
+        seed: integer
+    - kind: ideal-flow
+
+    - kind: restart
+      params:
+        file: string
+
+    - kind: upsample
+      params:
+        file: string
+
+couple:
+  oneOf:
+    - kind: hsmac
+      params:
+        time_blocking: boolean
+        overlap: boolean
+        omega: number
+        epsp: number
+        itrmin: integer
+        itrmax: integer
+
+        coloring:
+          oneOf:
+            - kind: "no"
+
+            - kind: red-black-fast
+
+            - kind: red-black-simple
+
+            - kind: red-black-block
+              params:
+                blocksize: integer
+
+    - kind: smac
+
+forcing:
+  oneOf:
+    - kind: "no"
+
+    - kind: linear-power
+      params:
+        power: number
+
+    - kind: rc-energy
+      params:
+        kmin: integer
+        kmax: integer
+        coarse_size: integer
+        energy: number
+
+stat:
+  integral_length: boolean

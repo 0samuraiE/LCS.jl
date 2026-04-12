@@ -1,0 +1,6 @@
+**/benchmark/tune.json
+docs/build/
+.claude
+AGENTS.md
+CLAUDE.md
+data

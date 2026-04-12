@@ -1,0 +1,21 @@
+[CUDA_Runtime_jll]
+local = "true"
+version = "12.8"
+
+[HDF5]
+libhdf5 = "/apps/t4/rhel9/free/hdf5-parallel/1.14.3/gcc11.4.1/lib/libhdf5.so"
+libhdf5_hl = "/apps/t4/rhel9/free/hdf5-parallel/1.14.3/gcc11.4.1/lib/libhdf5_hl.so"
+
+[HDF5_jll]
+libhdf5_hl_path = "/apps/t4/rhel9/free/hdf5-parallel/1.14.3/gcc11.4.1/lib/libhdf5_hl.so"
+libhdf5_path = "/apps/t4/rhel9/free/hdf5-parallel/1.14.3/gcc11.4.1/lib/libhdf5.so"
+
+[MPIPreferences]
+__clear__ = ["preloads_env_switch"]
+_format = "1.0"
+abi = "OpenMPI"
+binary = "system"
+cclibs = []
+libmpi = "libmpi"
+mpiexec = "mpiexec"
+preloads = []

@@ -1,0 +1,10 @@
+name = "FourierTools"
+uuid = "b9e16037-d6f3-4dbd-a43e-b54ed29354cc"
+version = "0.1.0"
+authors = ["Taketo Tominaga"]
+
+[deps]
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
+[compat]
+StaticArrays = "1.9.16"

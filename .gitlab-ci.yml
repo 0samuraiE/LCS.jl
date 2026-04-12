@@ -1,0 +1,27 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: julia:1.12
+  before_script:
+    - apt-get update && apt-get install -y git-lfs
+    - git lfs install
+    - git lfs pull
+  script:
+    - julia --project -e 'using Pkg; Pkg.instantiate()'
+    - JULIA_CPU_THREADS=2 LCS_TEST_SKIP_MPI=1 julia --project -e 'using Pkg; Pkg.test(; test_args=["--quickfail"])'
+
+pages:
+  stage: deploy
+  image: julia:1.12
+  script:
+    - julia --project=docs -e 'using Pkg; Pkg.instantiate()'
+    - julia --project=docs docs/make.jl
+    - mv docs/build public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

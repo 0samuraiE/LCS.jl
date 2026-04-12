@@ -1,0 +1,29 @@
+{
+  "id": "grml-zsh",
+  "version": "1.0.0",
+  "name": "grml zsh Configuration",
+  "description": "Configures zsh with grml base configuration and essential plugins (completions, syntax highlighting, autosuggestions, history substring search)",
+  "documentationURL": "https://grml.org/zsh/",
+  "options": {
+    "enableCompletions": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install and enable zsh-completions plugin"
+    },
+    "enableSyntaxHighlighting": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install and enable zsh-syntax-highlighting plugin"
+    },
+    "enableAutosuggestions": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install and enable zsh-autosuggestions plugin"
+    },
+    "enableHistorySubstring": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install and enable zsh-history-substring-search plugin"
+    }
+  }
+}

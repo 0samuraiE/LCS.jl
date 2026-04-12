@@ -1,0 +1,24 @@
+name = "Parallel"
+uuid = "d2bb4270-1b2a-40fa-ad96-fe8145f8b2b3"
+version = "0.1.0"
+authors = ["Taketo Tominaga"]
+
+[deps]
+KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
+
+[weakdeps]
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+
+[extensions]
+CUDAExt = ["CUDA"]
+
+[compat]
+KernelAbstractions = "0.9"
+
+[extras]
+Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Adapt", "CUDA", "Test"]

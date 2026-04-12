@@ -1,0 +1,16 @@
+name = "Schema"
+uuid = "df342a83-a642-4e55-8d68-66afc4eb8422"
+version = "0.1.0"
+authors = ["Taketo Tominaga"]
+
+[deps]
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
+
+[compat]
+JSON = "1"
+MacroTools = "0.5"
+OrderedCollections = "1.8"
+YAML = "0.4"

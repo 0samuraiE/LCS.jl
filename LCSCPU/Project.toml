@@ -1,0 +1,12 @@
+[deps]
+Accessors = "7d9f7c33-5ae7-4f3b-8dc6-eff91059b697"
+LCS = "d7500b79-e12e-45b8-bb2e-4c8efc610d56"
+MPI = "da04e1cc-30fd-572f-bb4f-1f8673147195"
+Topologies = "c5b11047-32fe-46e1-9f4f-7c3274b144d9"
+
+[sources]
+LCS = {path = ".."}
+Topologies = {path = "../lib/topologies"}
+
+[extras]
+MPIPreferences = "3da0fdf6-3ccc-4f1b-acd9-58baa6c99267"

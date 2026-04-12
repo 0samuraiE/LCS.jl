@@ -1,0 +1,33 @@
+name = "PolySerde"
+uuid = "f47ed369-7962-4eb7-b989-aeb24d097042"
+version = "0.1.0"
+authors = ["Taketo Tominaga"]
+
+[deps]
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+
+[weakdeps]
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
+Parallel = "d2bb4270-1b2a-40fa-ad96-fe8145f8b2b3"
+
+[extensions]
+CUDAExt = ["CUDA", "KernelAbstractions"]
+KernelAbstractionsExt = "KernelAbstractions"
+ParallelExt = "Parallel"
+
+[sources]
+Parallel = { path = "../parallel" }
+
+[compat]
+CUDA = "5.9"
+KernelAbstractions = "0.9"
+MacroTools = "0.5"
+Parallel = "0.1"
+
+[extras]
+Parallel = "d2bb4270-1b2a-40fa-ad96-fe8145f8b2b3"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

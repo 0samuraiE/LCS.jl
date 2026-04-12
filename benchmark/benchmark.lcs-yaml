@@ -1,0 +1,101 @@
+outdir: "output"
+
+mode:
+  kind: flow-particle
+
+backend:
+  kind: cpu
+
+topo:
+  proc_dims:
+    - 0
+    - 0
+    - 0
+  reorder: false
+
+grid:
+  dims:
+    - 256
+    - 256
+    - 256
+  halo_size: 3
+
+timestep:
+  cfl: 0.3
+  dtmax: 0.01
+
+simulate:
+  last_step: 0
+  interval_stat: 1
+  interval_restart: 1
+  interval_gc: 1
+  num_restart_files: 1
+
+flow:
+  params:
+    U0_m_s: 0.429
+    L0_m: 0.005
+    NU_m2_s: 1.5E-5
+
+  init:
+    kind: random-flow
+    params:
+      seed: 0
+
+  couple:
+    kind: hsmac
+    params:
+      time_blocking: true
+      overlap: false
+      omega: 1.7
+      epsp: 0.001
+      itrmin: 6
+      itrmax: 6
+      coloring:
+        kind: red-black-fast
+
+  forcing:
+    kind: rc-energy
+    params:
+      kmin: 1
+      kmax: 2
+      coarse_size: 8
+      energy: 0.649
+
+  stat:
+    integral_length: true
+
+particles:
+  - population:
+      valid: 2097152
+      invalid_ratio: 1.0
+      exchange_ratio: 0.02
+
+    params:
+      gravity: 0.0
+      density_ratio: 843
+
+    cell:
+      grid_ratio: 4
+
+    stat:
+      rdf:
+        contact_tolerance: 0.01
+        bin_size: 10
+        min_radius: 1.0e-3
+        search_cell_size: 1
+
+    drag:
+      kind: linear
+
+    init:
+      id:
+        kind: generate
+      position:
+        kind: random
+      velocity:
+        kind: rest
+      size:
+        kind: const
+        params:
+          diam_m: 1.14e-5

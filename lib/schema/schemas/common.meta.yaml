@@ -1,0 +1,25 @@
+outdir: string
+
+backend:
+  oneOf:
+    - kind: cpu
+    - kind: cuda
+
+topo:
+  proc_dims: integer(3)
+  reorder: boolean
+
+grid:
+  dims: integer(3)
+  halo_size: integer
+
+timestep:
+  cfl: number
+  dtmax: number
+
+simulate:
+  last_step: integer
+  interval_stat: integer
+  interval_restart: integer
+  interval_gc: integer
+  num_restart_files: integer

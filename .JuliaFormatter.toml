@@ -1,0 +1,5 @@
+style = "blue"
+always_use_return = false
+margin = 120
+align_struct_field = true
+align_pair_arrow = true
