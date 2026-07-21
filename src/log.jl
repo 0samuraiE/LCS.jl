@@ -33,6 +33,7 @@ macro log(backend, msg, ex)
             KA.synchronize($(esc(backend)))
             t0 = time()
             local x = $(esc(ex))
+            KA.synchronize($(esc(backend)))
             elapsed = time() - t0
             mpiprintln($(esc(msg)), ": done. (", _fmt_elapsed(elapsed), ")")
             x
