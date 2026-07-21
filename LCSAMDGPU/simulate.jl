@@ -11,7 +11,7 @@ file = ARGS[1]
 expr = length(ARGS) >= 2 ? ARGS[2] : ""
 
 patch = include_string(Main, string("function (config)\n", expr, "\nreturn config\nend"))
-config = LCSIO.readconfig(file; patch)
+config = Base.invokelatest(LCSIO.readconfig, file; patch)
 
 LCS.simulate(config)
 
