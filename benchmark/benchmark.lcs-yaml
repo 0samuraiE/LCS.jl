@@ -63,7 +63,9 @@ flow:
       energy: 0.649
 
   stat:
-    integral_length: true
+    # integral length requires an FFT backend on the device; rocFFT is not
+    # installed on this host (AMDGPU.jl: "rocFFT is unavailable")
+    integral_length: false
 
 particles:
   - population:

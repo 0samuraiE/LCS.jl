@@ -1,6 +1,7 @@
 using BenchmarkTools
 
 using Accessors
+using AMDGPU
 using CUDA, cuDNN
 using LCS
 using Topologies
@@ -9,8 +10,13 @@ import KernelAbstractions as KA
 
 const SUITE = BenchmarkGroup()
 
-backends = Tuple{String,KA.Backend}[("cpu", KA.CPU())]
+backends = if get(ENV, "LCS_BENCH_CPU", "1") == "1"
+    Tuple{String,KA.Backend}[("cpu", KA.CPU())]
+else
+    Tuple{String,KA.Backend}[]
+end
 CUDA.has_cuda() && push!(backends, ("cuda", CUDA.CUDABackend()))
+AMDGPU.functional() && push!(backends, ("amdgpu", AMDGPU.ROCBackend()))
 
 let
     for (name, backend) in backends
@@ -19,7 +25,7 @@ let
             config = @set config.backend = backend
 
             Topologies.device!(config)
-            CUDA.device!(0)
+            backend isa CUDA.CUDABackend && CUDA.device!(0)
             topo = Topologies.Topology(config)
 
             buffer = LCS.Buffer(config, topo)
