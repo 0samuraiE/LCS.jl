@@ -1,0 +1,24 @@
+[CUDA_Runtime_jll]
+__clear__ = ["version"]
+local = "true"
+
+[LCS]
+precompile_workload = false
+
+[MPIPreferences]
+__clear__ = ["preloads_env_switch"]
+_format = "1.0"
+abi = "OpenMPI"
+binary = "system"
+cclibs = []
+libmpi = "libmpi"
+mpiexec = "mpiexec"
+preloads = []
+
+[HDF5]
+libhdf5 = "/usr/local/hdf5/lib/libhdf5.so"
+libhdf5_hl = "/usr/local/hdf5/lib/libhdf5_hl.so"
+
+[HDF5_jll]
+libhdf5_hl_path = "/usr/local/hdf5/lib/libhdf5_hl.so"
+libhdf5_path = "/usr/local/hdf5/lib/libhdf5.so"
