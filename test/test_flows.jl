@@ -130,7 +130,7 @@ REFERENCE = joinpath(@__DIR__, "references/flows.jld2")
                     A_coarse_ref = reshape(1:prod(coarse_dims), coarse_dims...)
                     @views A[map(n -> (1:n) .+ halo_size, dims)...] .= repeat(A_coarse_ref; inner=filter_dims)
                     A_coarse = zeros(eltype(A), coarse_dims...)
-                    F.boxmean_l!(A_coarse, A, halo_size, filter_dims)
+                    F.boxmean_l!(backend, A_coarse, A, halo_size, filter_dims)
                     @test A_coarse == A_coarse_ref
                 end
             end

@@ -105,6 +105,7 @@ function boxmean!(
     forcingbuf::RCFBuffer,
     grid::LCS.Grid,
     forcing::RCForcing,
+    backend::KA.Backend,
     kwargs...,
 )
     (; Us_coarse_l, Us_coarse_g) = forcingbuf
@@ -118,9 +119,9 @@ function boxmean!(
     V_coarse_l = view(Us_coarse_l, :, :, :, 2)
     W_coarse_l = view(Us_coarse_l, :, :, :, 3)
 
-    boxmean_l!(U_coarse_l, U, halo_size, filter_dims)
-    boxmean_l!(V_coarse_l, V, halo_size, filter_dims)
-    boxmean_l!(W_coarse_l, W, halo_size, filter_dims)
+    boxmean_l!(backend, U_coarse_l, U, halo_size, filter_dims)
+    boxmean_l!(backend, V_coarse_l, V, halo_size, filter_dims)
+    boxmean_l!(backend, W_coarse_l, W, halo_size, filter_dims)
 
     copyto!(U_coarse_g, U_coarse_l)
     copyto!(V_coarse_g, V_coarse_l)
@@ -155,9 +156,9 @@ function boxmean!(
     V_coarse_l = view(Us_coarse_l, :, :, :, 2)
     W_coarse_l = view(Us_coarse_l, :, :, :, 3)
 
-    boxmean_l!(U_coarse_l, U, halo_size, filter_dims)
-    boxmean_l!(V_coarse_l, V, halo_size, filter_dims)
-    boxmean_l!(W_coarse_l, W, halo_size, filter_dims)
+    boxmean_l!(backend, U_coarse_l, U, halo_size, filter_dims)
+    boxmean_l!(backend, V_coarse_l, V, halo_size, filter_dims)
+    boxmean_l!(backend, W_coarse_l, W, halo_size, filter_dims)
 
     copyto!(sendbuf, Us_coarse_l)
     KA.synchronize(backend)
@@ -174,7 +175,7 @@ function boxmean!(
     end
 end
 
-function boxmean_l!(U_coarse_l::Field, U::Field, halo_size::Integer, filter_dims::Integer3)
+function boxmean_l!(::KA.CPU, U_coarse_l::Field, U::Field, halo_size::Integer, filter_dims::Integer3)
     U = Utils.reshape(U, size(U)..., 1, 1)
     U_coarse_l = Utils.reshape(U_coarse_l, size(U_coarse_l)..., 1, 1)
 

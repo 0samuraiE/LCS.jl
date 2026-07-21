@@ -1,8 +1,26 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.12.5"
+julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "afaf5f0ff9e735d3a4ccd3d197f9de78ade1fa33"
+project_hash = "7ccd1531c7cdd8c42fbc5c28b14ca0137dcd8dbf"
+
+[[deps.AMDGPU]]
+deps = ["AbstractFFTs", "AcceleratedKernels", "Adapt", "Atomix", "BFloat16s", "CEnum", "ExprTools", "GPUArrays", "GPUCompiler", "GPUToolbox", "KernelAbstractions", "LLD_jll", "LLVM", "LLVM_jll", "Libdl", "LinearAlgebra", "Pkg", "PrecompileTools", "Preferences", "PrettyTables", "Printf", "ROCmDeviceLibs_jll", "Random", "Random123", "RandomNumbers", "SparseArrays", "StaticArraysCore", "Statistics", "UnsafeAtomics"]
+git-tree-sha1 = "c451e0febf762a9019d8a9747a31e8cf3f655fd7"
+uuid = "21141c5a-9bdb-4563-92ae-f87d6854732e"
+version = "2.7.0"
+
+    [deps.AMDGPU.extensions]
+    AMDGPUChainRulesCoreExt = "ChainRulesCore"
+    AMDGPUEnzymeCoreExt = "EnzymeCore"
+    AMDGPUSparseMatricesCSRExt = "SparseMatricesCSR"
+    AMDGPUSpecialFunctionsExt = "SpecialFunctions"
+
+    [deps.AMDGPU.weakdeps]
+    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+    EnzymeCore = "f151be2c-9106-41f4-ab19-57ee4f262869"
+    SparseMatricesCSR = "a0a7dd2c-ebf4-11e9-1f05-cf50bc540ca1"
+    SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 
 [[deps.ANSIColoredPrinters]]
 git-tree-sha1 = "574baf8110975760d391c710b6341da1afa48d8c"
@@ -532,15 +550,16 @@ deps = ["AbstractFFTs", "AcceleratedKernels", "Accessors", "Adapt", "FFTW", "Fou
 path = "."
 uuid = "d7500b79-e12e-45b8-bb2e-4c8efc610d56"
 version = "1.0.0-DEV"
+weakdeps = ["AMDGPU", "CUDA", "cuDNN"]
 
     [deps.LCS.extensions]
     AMDGPUExt = ["AMDGPU"]
     CUDACUDNNExt = ["CUDA", "cuDNN"]
 
-    [deps.LCS.weakdeps]
-    AMDGPU = "21141c5a-9bdb-4563-92ae-f87d6854732e"
-    CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
-    cuDNN = "02a925ec-e4fe-4b08-9a7e-0d78e3d38ccd"
+[[deps.LLD_jll]]
+deps = ["Artifacts", "Libdl", "Zlib_jll", "libLLVM_jll"]
+uuid = "d55e3150-da41-5e91-b323-ecfd1eec6109"
+version = "18.1.7+5"
 
 [[deps.LLVM]]
 deps = ["CEnum", "LLVMExtra_jll", "Libdl", "Preferences", "Printf", "Unicode"]
@@ -562,6 +581,12 @@ version = "0.0.38+0"
 git-tree-sha1 = "2e5c102cfc41f48ae4740c7eca7743cc7e7b75ea"
 uuid = "8b046642-f1f6-4319-8d3c-209ddc03c586"
 version = "1.0.0"
+
+[[deps.LLVM_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "TOML", "Zlib_jll", "libLLVM_jll"]
+git-tree-sha1 = "52b49a1dbe5d4175c34c9db554719cc508f804b5"
+uuid = "86de99a1-58d6-5da7-8064-bd56ce2e322c"
+version = "18.1.7+4"
 
 [[deps.LaTeXStrings]]
 git-tree-sha1 = "dda21b8cbd6a6c40d9d02a73230f9d70fed6918c"
@@ -645,14 +670,11 @@ deps = ["Distributed", "DocStringExtensions", "Libdl", "MPICH_jll", "MPIPreferen
 git-tree-sha1 = "a61ecf714d71064b766d481ef43c094d4c6e3c52"
 uuid = "da04e1cc-30fd-572f-bb4f-1f8673147195"
 version = "0.20.23"
+weakdeps = ["AMDGPU", "CUDA"]
 
     [deps.MPI.extensions]
     AMDGPUExt = "AMDGPU"
     CUDAExt = "CUDA"
-
-    [deps.MPI.weakdeps]
-    AMDGPU = "21141c5a-9bdb-4563-92ae-f87d6854732e"
-    CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
 
 [[deps.MPICH_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Hwloc_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "MPIPreferences", "TOML"]
@@ -911,6 +933,12 @@ version = "0.1.6"
 deps = ["InteractiveUtils", "JuliaSyntaxHighlighting", "Markdown", "Sockets", "StyledStrings", "Unicode"]
 uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 version = "1.11.0"
+
+[[deps.ROCmDeviceLibs_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "1ea85ef5153720673093b2a59f9486c98759feda"
+uuid = "873c0968-716b-5aa7-bb8d-d1e2e2aeff2d"
+version = "6.2.1+2"
 
 [[deps.Random]]
 deps = ["SHA"]
@@ -1184,6 +1212,11 @@ deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "6498e3581023f8e530f34760d18f75a69e3a4ea8"
 uuid = "1e29f10c-031c-5a83-9565-69cddfc27673"
 version = "1.3.0+0"
+
+[[deps.libLLVM_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "8f36deef-c2a5-5394-99ed-8e07531fb29a"
+version = "18.1.7+5"
 
 [[deps.libaec_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]

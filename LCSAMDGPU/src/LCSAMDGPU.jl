@@ -24,7 +24,8 @@ using PrecompileTools: @setup_workload, @compile_workload
         tmpdir = MPI.bcast(tmpdir, 0, comm)
 
         config = LCSIO.readconfig(joinpath(dirname(pathof(LCS)), "../precompile.lcs-yaml"))
-        @reset config.backend = CUDABackend()
+        @reset config.backend = AMDGPU.ROCBackend()
+        @reset config.flow.stat.integral_length = false
         Topologies.device!(config)
 
         ENV["LCS_LOG_LEVEL"] = "QUIET"
