@@ -83,15 +83,28 @@ end
 @composite RDF
 
 """
+    Spectrum
+
+Particle number-density spectrum configuration.
+"""
+struct Spectrum
+    max_wavenumber :: Int
+    nsamples       :: Int
+end
+@composite Spectrum
+
+"""
     Stat
 
 Particle statistics configuration.
 
 # Fields
 - `rdf`: Radial distribution function configuration
+- `spectrum`: Particle number-density spectrum configuration
 """
 struct Stat
-    rdf :: RDF
+    rdf      :: RDF
+    spectrum :: Spectrum
 end
 @composite Stat
 

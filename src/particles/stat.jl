@@ -1,4 +1,22 @@
 """
+    SpectrumStat
+
+Particle number density spectrum statistics.
+
+# Fields
+- `wavenumbers`: Wavenumber values
+- `Enp`: Particle number density energy spectrum
+"""
+@kwdef struct SpectrumStat
+    #! format: off
+    wavenumbers :: Vector{Float64} = Float64[]
+    Enp         :: Vector{Float64} = Float64[]
+    #! format: on
+end
+@composite SpectrumStat
+PPrint.PrintStyle(::Type{<:SpectrumStat}) = PPrint.Tree()
+
+"""
     RDFStat
 
 Radial distribution function statistics.
@@ -41,19 +59,21 @@ Particle statistics containing computed particle properties.
 - `τp`: Mean particle response time
 - `St`: Stokes number (τp / τη)
 - `rdf`: Radial distribution function statistics
+- `spectrum`: Particle number density spectrum statistics
 """
 @kwdef struct ParticleStat <: LCS.AbstractStat
     #! format: off
-    x    :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    y    :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    z    :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    u    :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    v    :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    w    :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    diam :: LCS.Summary{Float64} = LCS.Summary{Float64}()
-    τp   :: Float64              = 0.0
-    St   :: Float64              = 0.0
-    rdf  :: RDFStat              = RDFStat()
+    x        :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    y        :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    z        :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    u        :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    v        :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    w        :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    diam     :: LCS.Summary{Float64} = LCS.Summary{Float64}()
+    τp       :: Float64              = 0.0
+    St       :: Float64              = 0.0
+    rdf      :: RDFStat              = RDFStat()
+    spectrum :: SpectrumStat         = SpectrumStat()
     #! format: on
 end
 @composite ParticleStat
@@ -126,7 +146,8 @@ function stat(;
     rdf = Particles.rdf_assume_ci(;
         diam=diam.mean, xss, props, cibuf, nvalid, grid, population, cell, topo, stat, backend
     )
-    ParticleStat(; x, y, z, u, v, w, diam, τp, St, rdf)
+    spectrum = Particles.spectrum(; xss, nvalid, population, topo, stat, backend)
+    ParticleStat(; x, y, z, u, v, w, diam, τp, St, rdf, spectrum)
 end
 
 """

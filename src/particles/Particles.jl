@@ -30,5 +30,6 @@ include("boundary.jl")
 include("motion.jl")
 include("update.jl")
 include("rdf.jl")
+include("spectrum.jl")
 include("stat.jl")
 end

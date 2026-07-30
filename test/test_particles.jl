@@ -24,7 +24,7 @@ nvalid = P.nvalid_l(population, topo)
 dt = 0.01
 
 cell = P.Cell(4)
-stat = P.Stat(P.RDF(1E-3, 4, 1E-2, 1))
+stat = P.Stat(P.RDF(1E-3, 4, 1E-2, 1), P.Spectrum(8, 8))
 
 fields = F.Fields(backend, grid, topo)
 props = P.Properties(backend, population, topo)
