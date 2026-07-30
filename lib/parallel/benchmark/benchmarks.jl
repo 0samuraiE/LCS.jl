@@ -1,10 +1,12 @@
 using BenchmarkTools
+using AMDGPU
 using CUDA
 using Parallel
 
 const SUITE = BenchmarkGroup()
 
 backends = Tuple{String,KA.Backend}[("cpu", KA.CPU())]
+AMDGPU.functional() && push!(backends, ("amdgpu", AMDGPU.ROCBackend()))
 CUDA.has_cuda() && push!(backends, ("cuda", CUDA.CUDABackend()))
 
 for (name, backend) in backends
