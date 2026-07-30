@@ -7,18 +7,22 @@ authors = ["Taketo Tominaga"]
 KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
 
 [weakdeps]
+AMDGPU = "21141c5a-9bdb-4563-92ae-f87d6854732e"
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
 
 [extensions]
+AMDGPUExt = ["AMDGPU"]
 CUDAExt = ["CUDA"]
 
 [compat]
+AMDGPU = "2"
 KernelAbstractions = "0.9"
 
 [extras]
 Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
+AMDGPU = "21141c5a-9bdb-4563-92ae-f87d6854732e"
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Adapt", "CUDA", "Test"]
+test = ["Adapt", "AMDGPU", "CUDA", "Test"]
