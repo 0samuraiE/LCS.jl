@@ -84,6 +84,9 @@ particles:
         bin_size: 10
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 24
+        nsamples: 64
 
     drag:
       kind: linear

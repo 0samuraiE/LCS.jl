@@ -66,6 +66,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -95,6 +98,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -124,6 +130,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -153,6 +162,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -182,6 +194,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -211,6 +226,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -240,6 +258,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
@@ -269,6 +290,9 @@ particles:
         bin_size: 16
         min_radius: 1.0e-3
         search_cell_size: 1
+      spectrum:
+        max_wavenumber: 128
+        nsamples: 64
     drag:
       kind: "nonlinear"
     init:
