@@ -1,10 +1,12 @@
 using Test
 
 using Adapt
+using AMDGPU
 using CUDA
 using Parallel
 
 backends = Tuple{String,KA.Backend}[("cpu", KA.CPU())]
+AMDGPU.functional() && push!(backends, ("amdgpu", AMDGPU.ROCBackend()))
 CUDA.has_cuda() && push!(backends, ("cuda", CUDA.CUDABackend()))
 
 @testset "Parallel" begin
