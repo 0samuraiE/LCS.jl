@@ -1,5 +1,6 @@
 module Common
-export MAKIE_FONTS_THEME, KOLMOGOROV_COLORS, ticks, log10ticks, logbounds, _logrange
+
+export KOLMOGOROV_COLORS, MAKIE_FONTS_THEME, log10ticks, logbounds, lograngeby, ticks
 
 using Printf
 using Makie
@@ -9,7 +10,7 @@ const MAKIE_FONTS_THEME = let
     mt_fonts_dir = joinpath(
         dirname(pathof(MT)), "..", "assets", "fonts", "NewComputerModern"
     )
-    (; #
+    (;
         regular=joinpath(mt_fonts_dir, "NewCM10-Regular.otf"),
         bold=joinpath(mt_fonts_dir, "NewCM10-Bold.otf"),
     )
@@ -24,7 +25,7 @@ function log10ticks(x)
     return x, labels
 end
 
-function _logrange(start, stop, base)
+function lograngeby(start, stop, base)
     length = ceil(Int, log(stop / start) / log(base)) + 1
     return logrange(start, stop; length)
 end

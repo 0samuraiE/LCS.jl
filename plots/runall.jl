@@ -8,7 +8,7 @@ end
 
 for f in files
     m = gensym()
-    ex = :(#
+    ex = :(
         module $m
         include(joinpath($dir, $f))
         end

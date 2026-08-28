@@ -1,5 +1,7 @@
 # LCS.jl
-**Lagrangian Cloud Simulator in Julia** — A single-source, multi-platform multiphase turbulence simulation model with MPI and GPU support.
+
+**Lagrangian Cloud Simulator in Julia** — A single-source, multi-platform,
+multiphase turbulence simulation model with MPI and GPU support.
 
 [![CI](https://github.com/0samuraiE/LCS.jl/actions/workflows/ci.yml/badge.svg)](https://github.com/0samuraiE/LCS.jl/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://0samuraiE.github.io/LCS.jl/)
@@ -8,7 +10,7 @@
 ## Overview
 
 LCS.jl is a direct numerical simulation (DNS) model for turbulent particle-laden flows, implemented in [Julia](https://julialang.org/) and [KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl).
-A single source code runs on CPUs and NVIDIA GPUs. The design is intended to support other backends (AMD GPUs, Apple Metal) through KernelAbstractions.jl, though these have not been tested.
+A single source code runs on CPUs, NVIDIA GPUs, and AMD GPUs. The design is intended to support other backends (Apple Metal) through KernelAbstractions.jl, though these have not been tested.
 
 For details on the model formulation, validation, and performance, see the paper (link to be added upon arXiv release).
 
@@ -30,6 +32,7 @@ Tested platforms:
 |---------|----------|
 | CPU | AMD EPYC 9654, Intel Xeon Gold 6326 |
 | NVIDIA GPU | H100 SXM5, RTX A6000 |
+| AMD GPU | AMD Radeon RX 9070 XT |
 
 ## Installation
 
@@ -37,11 +40,11 @@ Tested platforms:
 
 The recommended environment is provided as a devcontainer. Open this repository in VS Code with the Dev Containers extension. Dependencies are installed automatically.
 
-### Without Devcontainer
+### Without a dev container
 
-**Requirements:** Julia 1.12, MPI, HDF5, (CUDA, Rocm)
+**Requirements:** Julia 1.12, MPI, HDF5, and optionally CUDA or ROCm
 
-Julia, MPI, and HDF5 must be installed manually. Configure `LocalPreferences.toml` for system MPI and HDF5 — ensure that MPI is built with CUDA- or Rocm-aware and parallel HDF5 support as needed. Build scripts used in the devcontainer are available in [`.devcontainer/scripts`](.devcontainer/scripts) as a reference. Then run:
+Julia, MPI, and HDF5 must be installed manually. Configure `LocalPreferences.toml` for system MPI and HDF5 — ensure that MPI is built with CUDA- or ROCm-aware and parallel HDF5 support as needed. Build scripts used in the dev container are available in [`.devcontainer/scripts`](.devcontainer/scripts) as a reference. Then run:
 
 ```bash
 julia --project -e 'using Pkg; Pkg.instantiate()'
@@ -61,23 +64,24 @@ julia --project -e 'using Schema; Schema.generate()'
 
 ## Running
 
-The backend is selected by the entry point script (`simulate.jl`), which is a thin wrapper that imports the backend library. For example, the NVIDIA GPU entry point is:
+Choose a backend through one of the self-contained entry-point environments:
 
-```julia
-using CUDA, cuDNN
-using MPI
-MPI.Init()
-using Accessors
-using LCS
-using LCSCUDA
-# ...
-LCS.simulate(config)
-MPI.Finalize()
+| Backend | Environment | Entry point |
+|---------|-------------|-------------|
+| CPU | `LCSCPU` | `LCSCPU/simulate.jl` |
+| NVIDIA GPU | `LCSCUDA` | `LCSCUDA/simulate.jl` |
+| AMD GPU | `LCSAMDGPU` | `LCSAMDGPU/simulate.jl` |
+
+Instantiate the selected environment once before the first run, for example:
+
+```bash
+julia --project=LCSCUDA -e 'using Pkg; Pkg.instantiate()'
 ```
 
-To target a different backend, replace `using CUDA, cuDNN` and `using LCSCUDA` with the corresponding library (e.g., `using AMDGPU` and `using LCSAMDGPU` for AMD GPUs). The simulation code itself requires no modification.
+Every entry point accepts a YAML configuration path and an optional Julia expression
+that patches the parsed configuration before the simulation starts.
 
-The default forcing method (`rc-energy`) is the Reduced Communication Forcing (Onishi et al., 2011), which uses a box mean filter implemented via the DNN library (cuDNN for NVIDIA, MIOpen for AMD). If the DNN library is unavailable or unsupported on your platform, use the constant-power linear forcing (`linear-power`)(Lundgren, 2003; Rosales & Meneveau, 2005) instead, which does not require a DNN library and runs on any backend:
+The default forcing method (`rc-energy`) is the Reduced Communication Forcing (Onishi et al., 2011), which uses a box mean filter implemented via the DNN library (cuDNN for NVIDIA, MIOpen for AMD). If the DNN library is unavailable or unsupported on your platform, use the constant-power linear forcing (`linear-power`; Lundgren, 2003; Rosales & Meneveau, 2005) instead, which does not require a DNN library and runs on any backend:
 
 ```yaml
 forcing:
@@ -96,6 +100,12 @@ LCS_LOG_LEVEL=PROFILE julia --project=LCSCPU LCSCPU/simulate.jl cfgs/N128.lcs-ya
 
 ```bash
 LCS_LOG_LEVEL=INFO julia --project=LCSCUDA LCSCUDA/simulate.jl cfgs/N128.lcs-yaml
+```
+
+### AMD GPU (single process)
+
+```bash
+LCS_LOG_LEVEL=INFO julia --project=LCSAMDGPU LCSAMDGPU/simulate.jl cfgs/N128.lcs-yaml
 ```
 
 ### Multi-GPU (MPI)

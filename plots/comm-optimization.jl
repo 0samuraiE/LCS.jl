@@ -11,15 +11,15 @@ function _filter(d, method, field)
     return getindex.(d[d.method .== method], field)
 end
 
-for fontsize in (16, 18, 20, 24, 32)
+for fontsize in (18, 24)
     f = Figure(; size=(800, 494), fontsize)
-    ax = Axis(#
+    ax = Axis(
         f[1, 1];
         xlabel="Number of GPUs",
         ylabel="Wall-Time Reduction (%)",
         xscale=log10,
         xgridvisible=false,
-        xticks=ticks(Int.(_logrange(1, 128, 2))),
+        xticks=ticks(Int.(lograngeby(1, 128, 2))),
         ygridvisible=false,
         yminorticksvisible=true,
         xticksize=16,
@@ -28,8 +28,8 @@ for fontsize in (16, 18, 20, 24, 32)
 
     for (method, color, marker) in zip(
         ("overlap", "time-blocking", "time-blocking/overlap"),
-        (:blue, :red, :green, nothing),
-        (:circle, :xcross, :diamond, :utriangle),
+        (:blue, :red, :green),
+        (:circle, :xcross, :diamond),
     )
         xs = _filter(d, method, :devices)
         baseline = _filter(d, "none", :time)

@@ -24,7 +24,7 @@ esac
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_dir=$(dirname -- "$script_dir")
 source_dir="$repo_dir/figs"
-destination_dir=${2:-"$repo_dir/figs-$font_size"}
+destination_dir=${2:-"$repo_dir/scratch/figs"}
 
 mkdir -p -- "$destination_dir"
 

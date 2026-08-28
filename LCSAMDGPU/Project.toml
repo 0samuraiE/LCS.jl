@@ -12,8 +12,8 @@ PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 Topologies = "c5b11047-32fe-46e1-9f4f-7c3274b144d9"
 
 [sources]
-LCS = {path = ".."}
-Topologies = {path = "../lib/topologies"}
+LCS = { path = ".." }
+Topologies = { path = "../lib/topologies" }
 
 [extras]
 MPIPreferences = "3da0fdf6-3ccc-4f1b-acd9-58baa6c99267"

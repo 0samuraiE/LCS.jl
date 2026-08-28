@@ -1,18 +1,24 @@
 using CUDA, cuDNN
 using MPI
-MPI.Init()
 
 using Accessors
 using LCS
 using LCSCUDA
 
-length(ARGS) >= 1 || throw(ErrorException("Usage: julia simulate.jl <config file> [expression]"))
-file = ARGS[1]
-expr = length(ARGS) >= 2 ? ARGS[2] : ""
+function main(args)
+    isempty(args) && error("Usage: julia --project=LCSCUDA LCSCUDA/simulate.jl <config-file> [patch-expression]")
 
-patch = include_string(Main, string("function (config)\n", expr, "\nreturn config\nend"))
-config = Base.invokelatest(LCSIO.readconfig, file; patch)
+    config_path = first(args)
+    patch_expression = length(args) >= 2 ? args[2] : ""
+    patch = include_string(Main, "function (config)\n$patch_expression\nreturn config\nend")
+    config = Base.invokelatest(LCSIO.readconfig, config_path; patch)
 
-LCS.simulate(config)
+    LCS.simulate(config)
+end
 
-MPI.Finalize()
+MPI.Initialized() || MPI.Init()
+try
+    main(ARGS)
+finally
+    MPI.Finalized() || MPI.Finalize()
+end
