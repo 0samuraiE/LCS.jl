@@ -5,7 +5,7 @@ multiphase turbulence simulation model with MPI and GPU support.
 
 [![CI](https://github.com/0samuraiE/LCS.jl/actions/workflows/ci.yml/badge.svg)](https://github.com/0samuraiE/LCS.jl/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://0samuraiE.github.io/LCS.jl/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19515891.svg)](https://doi.org/10.5281/zenodo.19515891)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22137561.svg)](https://doi.org/10.5281/zenodo.22137561)
 
 ## Overview
 
