@@ -36,11 +36,6 @@ Two simulation modes are available, specified via the `mode.kind` field:
 - `flow`: Flow-only simulation
 - `flow-particle`: Coupled flow and Lagrangian particle simulation
 
-### Example Configurations
-
-- [`precompile.lcs-yaml`](https://gitlab.com/TITECH-onilab/LCS.jl/-/blob/master/precompile.lcs-yaml) - Minimal precompile configuration
-- [`benchmark/benchmark.lcs-yaml`](https://gitlab.com/TITECH-onilab/LCS.jl/-/blob/master/benchmark/benchmark.lcs-yaml) - Full production configuration
-
 ## Configuration Schema
 
 The full configuration schema is defined in YAML meta-schema files located in `lib/schema/schemas/`:

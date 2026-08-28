@@ -12,7 +12,7 @@ multiphase turbulence simulation model with MPI and GPU support.
 LCS.jl is a direct numerical simulation (DNS) model for turbulent particle-laden flows, implemented in [Julia](https://julialang.org/) and [KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl).
 A single source code runs on CPUs, NVIDIA GPUs, and AMD GPUs. The design is intended to support other backends (Apple Metal) through KernelAbstractions.jl, though these have not been tested.
 
-For details on the model formulation, validation, and performance, see the paper (link to be added upon arXiv release).
+For details on the model formulation, validation, and performance, see the paper (https://doi.org/10.5194/egusphere-2026-2214, 2026.).
 
 ## Installation Requirements
 
