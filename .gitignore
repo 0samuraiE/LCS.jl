@@ -4,5 +4,4 @@ docs/build/
 AGENTS.md
 CLAUDE.md
 data
-logs
-scripts
+scratch

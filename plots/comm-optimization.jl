@@ -11,12 +11,12 @@ function _filter(d, method, field)
     return getindex.(d[d.method .== method], field)
 end
 
-for fontsize in (16, 24, 32)
+for fontsize in (16, 18, 20, 24, 32)
     f = Figure(; size=(800, 494), fontsize)
     ax = Axis(#
         f[1, 1];
         xlabel="Number of GPUs",
-        ylabel="Speedup",
+        ylabel="Wall-Time Reduction (%)",
         xscale=log10,
         xgridvisible=false,
         xticks=ticks(Int.(_logrange(1, 128, 2))),
@@ -26,25 +26,22 @@ for fontsize in (16, 24, 32)
         yticksize=16,
     )
 
-    ymin, ymax = Inf, -Inf
     for (method, color, marker) in zip(
         ("overlap", "time-blocking", "time-blocking/overlap"),
         (:blue, :red, :green, nothing),
         (:circle, :xcross, :diamond, :utriangle),
     )
         xs = _filter(d, method, :devices)
-        ys = _filter(d, "none", :time) ./ _filter(d, method, :time)
+        baseline = _filter(d, "none", :time)
+        ys = 100 .* (baseline .- _filter(d, method, :time)) ./ baseline
 
         scatterlines!(
-            ax, xs, ys; color=color, marker=marker, markersize=fontsize, label=method
+            ax, xs, ys; color=color, marker=marker, markersize=fontsize / 1.2, label=method
         )
-
-        ymin = min(ymin, minimum(ys))
-        ymax = max(ymax, maximum(ys))
     end
 
-    ylims!(ax, 0.9 * ymin, ymax * 1.3)
-    axislegend(ax)
+    ylims!(ax, 0, 15)
+    axislegend(ax; position=:lt)
 
     mkpath("figs")
     save("figs/comm-optimization-$fontsize.pdf", f)

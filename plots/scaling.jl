@@ -13,11 +13,11 @@ for device in ("cpu", "gpu")
     file = "data/$device-strong.csv"
     d = CSV.File(file)
     for col in (1, 2)
-        for fontsize in (16, 24, 32)
+        for fontsize in (16, 18, 20, 24, 32)
             f = Figure(; size=(800 / col, 494), fontsize)
             ax = Axis(#
                 f[1, 1];
-                xlabel="Number of $(uppercase(device))s",
+                xlabel=device == "cpu" ? "Number of CPU Sockets" : "Number of GPUs",
                 ylabel="Wall Time (s)",
                 yscale=log10,
                 xscale=log10,
@@ -38,7 +38,7 @@ for device in ("cpu", "gpu")
                 filteritem(d, 1500, :time);
                 color=:blue,
                 marker=:circle,
-                markersize=fontsize,
+                markersize=fontsize / 1.2,
                 label=L"N^3=1500^3,\:N_p=750^3",
             )
 
@@ -58,7 +58,7 @@ for device in ("cpu", "gpu")
                 getindex.(d_3000, :time);
                 color=:red,
                 marker=:xcross,
-                markersize=fontsize,
+                markersize=fontsize / 1.2,
                 label=L"N^3=3000^3,\:N_p=1500^3",
             )
 
@@ -69,7 +69,7 @@ for device in ("cpu", "gpu")
                 (filteritem(d, 3000, :devices) ./ filteritem(d, 3000, :devices)[1]);
                 color=:black,
                 linestyle=:dash,
-                label="Ideal",
+                # label="Ideal",
             )
             axislegend(ax; merge=true)
 
@@ -90,18 +90,18 @@ end
 
 for device in ("cpu", "gpu")
     file = "data/$device-weak.csv"
-    d = CSV.File(file)
+    d = filter(row -> row.devices != 1, CSV.File(file))
     for col in (1, 2)
-        for fontsize in (16, 24, 32)
+        for fontsize in (16, 18, 20, 24, 32)
             f = Figure(; size=(800 / col, 494), fontsize)
             ax = Axis(#
                 f[1, 1];
-                xlabel="Number of $(uppercase(device))s",
+                xlabel=device == "cpu" ? "Number of CPU Sockets" : "Number of GPUs",
                 ylabel="Wall Time (s)",
                 yscale=log10,
                 xscale=log10,
                 xgridvisible=false,
-                xticks=ticks((1:6) .^ 3),
+                xticks=ticks((2:6) .^ 3),
                 yticks=log10ticks(_logrange(0.01, 1000.0, 10)),
                 ygridvisible=false,
                 yminorticksvisible=true,
@@ -119,47 +119,21 @@ for device in ("cpu", "gpu")
                 getitem(d, :time);
                 color=:blue,
                 marker=:circle,
-                markersize=fontsize,
+                markersize=fontsize / 1.2,
                 # label=L"N^3=750^3,\:N_p=325^3",
             )
 
-            if device == "gpu"
-                xs = getitem(d, :devices)
-                ys = getitem(d, :time)
-
-                lines!(
-                    ax,
-                    xs,
-                    fill(ys[2], length(xs));
-                    color=:black,
-                    linestyle=:dash,
-                    label="Ideal (pow-of-2)",
-                )
-
-                lines!(
-                    ax,
-                    xs[3:end],
-                    fill(ys[3], length(xs) - 2);
-                    color=:black,
-                    linestyle=(:dashdot, :dense),
-                    label="Ideal (non-pow-of-2)",
-                )
-            else
-                hlines!(#
-                    ax,
-                    getitem(d, :time)[2];
-                    color=:black,
-                    linestyle=:dash,
-                    label="Ideal",
-                )
-            end
+            devices = getitem(d, :devices)
+            baseline = getitem(d, :time)[only(findall(==(8), devices))]
+            label = device == "gpu" ? "Ideal (8 GPUs)" : "Ideal (8 CPU Sockets)"
+            hlines!(ax, baseline; color=:black, linestyle=:dash, label)
 
             mmax = maximum(getitem(d, :time))
             mmin = minimum(getitem(d, :time))
             ymin, ymax = logbounds(mmin, mmax)
             ylims!(ax, 0.1 * ymin, ymax * 10)
 
-            axislegend(ax)
+            # axislegend(ax)
 
             mkpath("figs")
             save("figs/$device-weak-$fontsize-$col.pdf", f)

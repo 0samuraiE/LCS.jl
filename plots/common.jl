@@ -1,5 +1,5 @@
 module Common
-export MAKIE_FONTS_THEME, ticks, log10ticks, logbounds, _logrange
+export MAKIE_FONTS_THEME, KOLMOGOROV_COLORS, ticks, log10ticks, logbounds, _logrange
 
 using Printf
 using Makie
@@ -14,6 +14,8 @@ const MAKIE_FONTS_THEME = let
         bold=joinpath(mt_fonts_dir, "NewCM10-Bold.otf"),
     )
 end
+
+const KOLMOGOROV_COLORS = (:red, :blue, Makie.wong_colors()...)
 
 ticks(x) = (x, string.(x))
 function log10ticks(x)
